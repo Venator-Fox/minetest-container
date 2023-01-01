@@ -1,0 +1,26 @@
+name: Build Container and Push to GHCR
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Login to ghcr
+      run: |
+        docker login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
+
+    - name: Build and push container
+      run: |
+        docker build . -tghcr.io/venator-fox/minetest-container:${GITHUB_REF##*/}-${GITHUB_SHA::7}
+        docker push ghcr.io/venator-fox/minetest-container:${GITHUB_REF##*/}-${GITHUB_SHA::7}
