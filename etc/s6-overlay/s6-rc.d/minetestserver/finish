@@ -1,0 +1,6 @@
+#!/bin/sh
+
+service_exit_code=$1
+uncaught_signal_code=$2
+
+echo "$service_exit_code" > /run/s6-linux-init-container-results/exitcode

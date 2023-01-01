@@ -1,0 +1,3 @@
+#!/command/execlineb -P
+s6-envdir /etc/s6-overlay/envdir
+s6-applyuidgid -z -u 30000 -g 30000 /etc/s6-overlay/scripts/minetestserver.sh
